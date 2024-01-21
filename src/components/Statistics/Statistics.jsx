@@ -1,66 +1,28 @@
-import React from "react";
-import { Component } from "react";
-
- class Statistics extends Component {
-constructor(props) {
-  super(props)
-
-  this.state = {
-     good: 0,
-     neutral: 0 ,
-     bad : 0
-  }
-}
-
-incrementGood(){
-    this.setState({
-      good: this.state.good + 1,
-    });
-}
-
-incrementNeutral(){
-    this.setState({
-     neutral: this.state.neutral + 1,
-    });
-}
-
-incrementBad(){
-    this.setState({
-      bad: this.state.bad + 1,
-    });
-}
-
-      
+import React from 'react';
+import PropTypes from 'prop-types';
 
 
+const Statistics = ({ good, neutral, bad, total, positiveFeedback }) => {
+  const positivePercentage = total === 0 ? 0 : Math.round((good / total) * 100);
 
-  render() {
-    return (
-      <div>
-        <div>
-          <h1>Please leave feedback</h1>
-        </div>
-        <div>
-          <button onClick={() => this.incrementGood()}>
-            Good - {this.state.good}
-          </button>
-          <button onClick={() => this.incrementNeutral()}>
-            Neutral - {this.state.neutral}
-          </button>
-          <button onClick={() => this.incrementBad()}>
-            Bad - {this.state.bad}
-          </button>
-        </div>
-        <div>
-          <h1>Statistics</h1>
-        </div>
-        <div> Good: {this.state.good} </div>
+  return (
+    <>
+      <p className="text_good">Good: {good}</p>
+      <p className="text_neutral">Neutral: {neutral}</p>
+      <p className="text_bad">Bad: {bad}</p>
+      <p className="text_total">Total: {total}</p>
+      <p className="text_feedback">Positive feedback: {positivePercentage}%</p>
+    </>
+  );
+};
 
-        <div>Neutral: {this.state.neutral}</div>
-        <div> Bad: {this.state.bad}</div>
-      </div>
-    );
-  }
-}
+Statistics.propTypes = {
+  good: PropTypes.number.isRequired,
+  neutral: PropTypes.number.isRequired,
+  bad: PropTypes.number.isRequired,
+  total: PropTypes.number.isRequired,
+  positiveFeedback: PropTypes.number.isRequired,
+};
 
-export default Statistics
+export default Statistics;
+
